@@ -20,16 +20,17 @@ import (
 )
 
 type OptionsConfiguration struct {
+	ConnectAllowed              bool     `json:"-" xml:"-" default:"true"`
 	RawListenAddresses          []string `json:"listenAddresses" xml:"listenAddress" default:"default"`
 	RawGlobalAnnServers         []string `json:"globalAnnounceServers" xml:"globalAnnounceServer" default:"default"`
-	GlobalAnnEnabled            bool     `json:"globalAnnounceEnabled" xml:"globalAnnounceEnabled" default:"true"`
-	LocalAnnEnabled             bool     `json:"localAnnounceEnabled" xml:"localAnnounceEnabled" default:"true"`
+	GlobalAnnEnabled2           bool     `json:"globalAnnounceEnabled" xml:"globalAnnounceEnabled" default:"true"`
+	LocalAnnEnabled2            bool     `json:"localAnnounceEnabled" xml:"localAnnounceEnabled" default:"true"`
 	LocalAnnPort                int      `json:"localAnnouncePort" xml:"localAnnouncePort" default:"21027"`
 	LocalAnnMCAddr              string   `json:"localAnnounceMCAddr" xml:"localAnnounceMCAddr" default:"[ff12::8384]:21027"`
 	MaxSendKbps                 int      `json:"maxSendKbps" xml:"maxSendKbps"`
 	MaxRecvKbps                 int      `json:"maxRecvKbps" xml:"maxRecvKbps"`
 	ReconnectIntervalS          int      `json:"reconnectionIntervalS" xml:"reconnectionIntervalS" default:"60"`
-	RelaysEnabled               bool     `json:"relaysEnabled" xml:"relaysEnabled" default:"true"`
+	RelaysEnabled2              bool     `json:"relaysEnabled" xml:"relaysEnabled" default:"true"`
 	RelayReconnectIntervalM     int      `json:"relayReconnectIntervalM" xml:"relayReconnectIntervalM" default:"10"`
 	StartBrowser                bool     `json:"startBrowser" xml:"startBrowser" default:"true"`
 	NATEnabled                  bool     `json:"natEnabled" xml:"natEnabled" default:"true"`

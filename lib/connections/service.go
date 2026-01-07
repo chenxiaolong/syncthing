@@ -333,7 +333,7 @@ func (s *service) connectionCheckEarly(remoteID protocol.DeviceID, c internalCon
 		return nil
 	}
 
-	if cfg.Paused {
+	if !s.cfg.Options().ConnectAllowed || cfg.Paused2 {
 		return errDevicePaused
 	}
 
@@ -543,6 +543,7 @@ func (s *service) dialDevices(ctx context.Context, now time.Time, cfg config.Con
 	stats, _ := s.model.DeviceStatistics()
 
 	queue := make(dialQueue, 0, len(cfg.Devices))
+	connectAllowed := s.cfg.Options().ConnectAllowed
 	for _, deviceCfg := range cfg.Devices {
 		// Don't attempt to connect to ourselves...
 		if deviceCfg.DeviceID == s.myID {
@@ -550,7 +551,7 @@ func (s *service) dialDevices(ctx context.Context, now time.Time, cfg config.Con
 		}
 
 		// Don't attempt to connect to paused devices...
-		if deviceCfg.Paused {
+		if !connectAllowed || deviceCfg.Paused2 {
 			continue
 		}
 
@@ -902,12 +903,13 @@ func (s *service) CommitConfiguration(from, to config.Configuration) bool {
 func (s *service) checkAndSignalConnectLoopOnUpdatedDevices(from, to config.Configuration) {
 	oldDevices := from.DeviceMap()
 	dial := false
+	connectAllowed := s.cfg.Options().ConnectAllowed
 	s.dialNowDevicesMut.Lock()
 	for _, dev := range to.Devices {
-		if dev.Paused {
+		if !connectAllowed || dev.Paused2 {
 			continue
 		}
-		if oldDev, ok := oldDevices[dev.DeviceID]; !ok || oldDev.Paused {
+		if oldDev, ok := oldDevices[dev.DeviceID]; !ok || oldDev.Paused2 {
 			s.dialNowDevices[dev.DeviceID] = struct{}{}
 			dial = true
 		} else if !slices.Equal(oldDev.Addresses, dev.Addresses) {

@@ -163,7 +163,7 @@ func TestGetDialer(t *testing.T) {
 	}
 
 	cfg := config.New(protocol.LocalDeviceID)
-	cfg.Options.RelaysEnabled = false
+	cfg.Options.RelaysEnabled2 = false
 
 	for _, tc := range cases {
 		df, err := getDialerFactory(cfg, tc.uri)
@@ -425,7 +425,8 @@ func withConnectionPair(b interface{ Fatal(...interface{}) }, connUri string, h 
 
 	cfg := config.Configuration{
 		Options: config.OptionsConfiguration{
-			RelaysEnabled: true,
+			ConnectAllowed: true,
+			RelaysEnabled2: true,
 		},
 	}
 	wcfg := config.Wrap("", cfg, deviceId, events.NoopLogger)

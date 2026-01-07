@@ -825,7 +825,7 @@ func cleanConfigDirectory() {
 func setPauseState(cfgWrapper config.Wrapper, paused bool) {
 	_, err := cfgWrapper.Modify(func(cfg *config.Configuration) {
 		for i := range cfg.Devices {
-			cfg.Devices[i].Paused = paused
+			cfg.Devices[i].Paused2 = paused
 		}
 		for i := range cfg.Folders {
 			cfg.Folders[i].Paused = paused
