@@ -1043,7 +1043,7 @@ func (s *service) getSystemStatus(w http.ResponseWriter, _ *http.Request) {
 	res["alloc"] = m.Alloc
 	res["sys"] = m.Sys - m.HeapReleased
 	res["tilde"] = tilde
-	if s.cfg.Options().LocalAnnEnabled || s.cfg.Options().GlobalAnnEnabled {
+	if s.cfg.Options().ConnectAllowed && (s.cfg.Options().LocalAnnEnabled2 || s.cfg.Options().GlobalAnnEnabled2) {
 		res["discoveryEnabled"] = true
 		discoStatus := s.discoverer.ChildErrors()
 		res["discoveryStatus"] = discoveryStatusMap(discoStatus)
@@ -1502,7 +1502,7 @@ func (s *service) makeDevicePauseHandler(paused bool) http.HandlerFunc {
 		_, err := s.cfg.Modify(func(cfg *config.Configuration) {
 			if deviceStr == "" {
 				for i := range cfg.Devices {
-					cfg.Devices[i].Paused = paused
+					cfg.Devices[i].Paused2 = paused
 				}
 				return
 			}
@@ -1521,7 +1521,7 @@ func (s *service) makeDevicePauseHandler(paused bool) http.HandlerFunc {
 				return
 			}
 
-			cfg.Devices[i].Paused = paused
+			cfg.Devices[i].Paused2 = paused
 		})
 
 		if msg != "" {

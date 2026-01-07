@@ -192,7 +192,7 @@ func (f *relayListenerFactory) New(uri *url.URL, cfg config.Wrapper, tlsCfg *tls
 }
 
 func (relayListenerFactory) Valid(cfg config.Configuration) error {
-	if !cfg.Options.RelaysEnabled {
+	if !(cfg.Options.ConnectAllowed && cfg.Options.RelaysEnabled2) {
 		return errDisabled
 	}
 	return nil

@@ -717,7 +717,7 @@ func (m *model) ConnectionStats() map[string]interface{} {
 		connIDs, ok := m.deviceConnIDs[device]
 		cs := ConnectionStats{
 			Connected:     ok,
-			Paused:        deviceCfg.Paused,
+			Paused:        deviceCfg.Paused2,
 			ClientVersion: strings.TrimSpace(versionString),
 		}
 		if ok {
@@ -3057,11 +3057,13 @@ func (m *model) CommitConfiguration(from, to config.Configuration) bool {
 			continue
 		}
 		delete(fromDevices, deviceID)
-		if fromCfg.Paused == toCfg.Paused {
+		fromPaused := !from.Options.ConnectAllowed || fromCfg.Paused2
+		toPaused := !to.Options.ConnectAllowed || toCfg.Paused2
+		if fromPaused == toPaused {
 			continue
 		}
 
-		if toCfg.Paused {
+		if toPaused {
 			slog.Info("Pausing device", deviceID.LogAttr())
 			closeDevices = append(closeDevices, deviceID)
 			m.evLogger.Log(events.DevicePaused, map[string]string{"device": deviceID.String()})
