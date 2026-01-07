@@ -25,7 +25,7 @@ type DeviceConfiguration struct {
 	Introducer               bool              `json:"introducer" xml:"introducer,attr"`
 	SkipIntroductionRemovals bool              `json:"skipIntroductionRemovals" xml:"skipIntroductionRemovals,attr"`
 	IntroducedBy             protocol.DeviceID `json:"introducedBy" xml:"introducedBy,attr" nodefault:"true"`
-	Paused                   bool              `json:"paused" xml:"paused"`
+	Paused2                  bool              `json:"paused" xml:"paused"`
 	AllowedNetworks          []string          `json:"allowedNetworks" xml:"allowedNetwork,omitempty"`
 	AutoAcceptFolders        bool              `json:"autoAcceptFolders" xml:"autoAcceptFolders"`
 	MaxSendKbps              int               `json:"maxSendKbps" xml:"maxSendKbps"`

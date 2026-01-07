@@ -16,12 +16,12 @@ func TestMigrateCrashReporting(t *testing.T) {
 		opts    OptionsConfiguration
 		enabled bool
 	}{
-		{opts: OptionsConfiguration{URAccepted: 0, GlobalAnnEnabled: true}, enabled: true},
-		{opts: OptionsConfiguration{URAccepted: -1, GlobalAnnEnabled: true}, enabled: true},
-		{opts: OptionsConfiguration{URAccepted: 1, GlobalAnnEnabled: true}, enabled: true},
-		{opts: OptionsConfiguration{URAccepted: 0, GlobalAnnEnabled: false}, enabled: false},
-		{opts: OptionsConfiguration{URAccepted: -1, GlobalAnnEnabled: false}, enabled: false},
-		{opts: OptionsConfiguration{URAccepted: 1, GlobalAnnEnabled: false}, enabled: true},
+		{opts: OptionsConfiguration{URAccepted: 0, GlobalAnnEnabled2: true}, enabled: true},
+		{opts: OptionsConfiguration{URAccepted: -1, GlobalAnnEnabled2: true}, enabled: true},
+		{opts: OptionsConfiguration{URAccepted: 1, GlobalAnnEnabled2: true}, enabled: true},
+		{opts: OptionsConfiguration{URAccepted: 0, GlobalAnnEnabled2: false}, enabled: false},
+		{opts: OptionsConfiguration{URAccepted: -1, GlobalAnnEnabled2: false}, enabled: false},
+		{opts: OptionsConfiguration{URAccepted: 1, GlobalAnnEnabled2: false}, enabled: true},
 	}
 
 	for i, tc := range cases {

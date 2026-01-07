@@ -337,7 +337,7 @@ func pauseDevice(t testing.TB, w config.Wrapper, id protocol.DeviceID, paused bo
 	t.Helper()
 	waiter, err := w.Modify(func(cfg *config.Configuration) {
 		_, i, _ := cfg.Device(id)
-		cfg.Devices[i].Paused = paused
+		cfg.Devices[i].Paused2 = paused
 	})
 	if err != nil {
 		t.Fatal(err)
