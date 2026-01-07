@@ -183,7 +183,7 @@ func migrateToConfigV29(cfg *Configuration) {
 	// The new crash reporting option should follow the state of global
 	// discovery / usage reporting, and we should display an appropriate
 	// notification.
-	if cfg.Options.GlobalAnnEnabled || cfg.Options.URAccepted > 0 {
+	if cfg.Options.GlobalAnnEnabled2 || cfg.Options.URAccepted > 0 {
 		cfg.Options.CREnabled = true
 		cfg.Options.UnackedNotificationIDs = append(cfg.Options.UnackedNotificationIDs, "crAutoEnabled")
 	} else {

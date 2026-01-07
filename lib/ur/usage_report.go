@@ -185,8 +185,8 @@ func (s *Service) reportData(ctx context.Context, urVersion int, preview bool) (
 		}
 	}
 
-	report.Announce.GlobalEnabled = opts.GlobalAnnEnabled
-	report.Announce.LocalEnabled = opts.LocalAnnEnabled
+	report.Announce.GlobalEnabled = opts.GlobalAnnEnabled2
+	report.Announce.LocalEnabled = opts.LocalAnnEnabled2
 	for _, addr := range opts.RawGlobalAnnServers {
 		if addr == "default" || addr == "default-v4" || addr == "default-v6" {
 			report.Announce.DefaultServersDNS++
@@ -195,7 +195,7 @@ func (s *Service) reportData(ctx context.Context, urVersion int, preview bool) (
 		}
 	}
 
-	report.Relays.Enabled = opts.RelaysEnabled
+	report.Relays.Enabled = opts.RelaysEnabled2
 	for _, addr := range s.cfg.Options().ListenAddresses() {
 		switch {
 		case addr == "dynamic+https://relays.syncthing.net/endpoint":
