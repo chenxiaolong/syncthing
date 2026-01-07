@@ -1756,7 +1756,7 @@ func TestConfigChanges(t *testing.T) {
 	if err := unmarshalTo(resp.Body, &dev); err != nil {
 		t.Fatal(err)
 	}
-	if !dev.Paused {
+	if !dev.Paused2 {
 		t.Error("Expected device to be paused")
 	}
 
@@ -1779,7 +1779,7 @@ func TestConfigChanges(t *testing.T) {
 	if err := unmarshalTo(resp.Body, &folder); err != nil {
 		t.Fatal(err)
 	}
-	if !dev.Paused {
+	if !dev.Paused2 {
 		t.Error("Expected folder to be paused")
 	}
 

@@ -232,13 +232,13 @@ func (m *manager) CommitConfiguration(_, to config.Configuration) (handled bool)
 	m.mut.Lock()
 	defer m.mut.Unlock()
 	toIdentities := make(map[string]struct{})
-	if to.Options.GlobalAnnEnabled {
+	if to.Options.ConnectAllowed && to.Options.GlobalAnnEnabled2 {
 		for _, srv := range to.Options.GlobalDiscoveryServers() {
 			toIdentities[globalDiscoveryIdentity(srv)] = struct{}{}
 		}
 	}
 
-	if to.Options.LocalAnnEnabled {
+	if to.Options.ConnectAllowed && to.Options.LocalAnnEnabled2 {
 		toIdentities[ipv4Identity(to.Options.LocalAnnPort)] = struct{}{}
 		toIdentities[ipv6Identity(to.Options.LocalAnnMCAddr)] = struct{}{}
 	}
@@ -251,7 +251,7 @@ func (m *manager) CommitConfiguration(_, to config.Configuration) (handled bool)
 	}
 
 	// Add things we don't have.
-	if to.Options.GlobalAnnEnabled {
+	if to.Options.ConnectAllowed && to.Options.GlobalAnnEnabled2 {
 		for _, srv := range to.Options.GlobalDiscoveryServers() {
 			identity := globalDiscoveryIdentity(srv)
 			// Skip, if it's already running.
@@ -271,7 +271,7 @@ func (m *manager) CommitConfiguration(_, to config.Configuration) (handled bool)
 		}
 	}
 
-	if to.Options.LocalAnnEnabled {
+	if to.Options.ConnectAllowed && to.Options.LocalAnnEnabled2 {
 		// v4 broadcasts
 		v4Identity := ipv4Identity(to.Options.LocalAnnPort)
 		if _, ok := m.finders[v4Identity]; !ok {

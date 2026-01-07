@@ -52,11 +52,12 @@ var folderDeviceMetricDesc = prometheus.NewDesc(
 )
 
 func (m *folderDeviceMetric) Collect(ch chan<- prometheus.Metric) {
+	connectAllowed := m.cfg.Options().ConnectAllowed
 	for _, device := range m.cfg.DeviceList() {
 		ch <- prometheus.MustNewConstMetric(
 			folderDeviceMetricDesc,
 			prometheus.GaugeValue, 1,
-			device.DeviceID.String(), device.Name, strconv.FormatBool(device.Introducer), strconv.FormatBool(device.Paused), strconv.FormatBool(device.Untrusted),
+			device.DeviceID.String(), device.Name, strconv.FormatBool(device.Introducer), strconv.FormatBool(!connectAllowed || device.Paused2), strconv.FormatBool(device.Untrusted),
 		)
 	}
 }

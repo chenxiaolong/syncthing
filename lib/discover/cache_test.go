@@ -21,8 +21,8 @@ import (
 
 func setupCache() *manager {
 	cfg := config.New(protocol.LocalDeviceID)
-	cfg.Options.LocalAnnEnabled = false
-	cfg.Options.GlobalAnnEnabled = false
+	cfg.Options.LocalAnnEnabled2 = false
+	cfg.Options.GlobalAnnEnabled2 = false
 
 	return NewManager(protocol.LocalDeviceID, config.Wrap("", cfg, protocol.LocalDeviceID, events.NoopLogger), tls.Certificate{}, events.NoopLogger, nil, registry.New()).(*manager)
 }
