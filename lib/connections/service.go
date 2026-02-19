@@ -869,6 +869,15 @@ func (s *service) CommitConfiguration(from, to config.Configuration) bool {
 			continue
 		}
 
+		if !to.Options.ConnectAllowed {
+			// Don't create any listeners because we're intentionally blocking
+			// all connections. We don't want to wake the cellular modem by
+			// accepting a TCP connection if we're just going to immediately
+			// close it anyway.
+			slog.Warn("Skipping listener due to global pause", slogutil.URI(addr))
+			continue
+		}
+
 		if _, ok := s.listeners[addr]; ok {
 			seen[addr] = struct{}{}
 			continue
